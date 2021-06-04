@@ -1,15 +1,28 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import HelloWorld from '@/components/HelloWorld';
+import Table from '@/components/Table';
+import NewUserModal from '@/components/NewUserModal';
+import EditUser from '@/components/EditUser';
 
 Vue.use(Router);
 
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
-    }
+      path: '/Table',
+      name: 'Table',
+      component: Table
+    },
+    {
+      path: '/NewUserModal',
+      name: 'NewUserModal',
+      component: NewUserModal
+    },
+    {
+      path: '/EditUser',
+      name: 'EditUser',
+      component: EditUser
+    },
+
   ]
 });

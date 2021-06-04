@@ -1,13 +1,48 @@
 <template>
   <div id="app">
-    <img src="./assets/logo-mdb-vue-small.png">
+    <div class= "container-fluid" >
+      <div class="row bg-dark">
+        <div class="col lg-12 text-white">
+          <p text=" center text-light display-4 pt-2 ">Crud Application Using Vuejs PHP and MSQLI</p>
+        </div>
+      </div>
+   </div>
+   <!-- displays edit user -->
+   <!-- <EditUser :issshowEditModal = "!isShowEditModal" /> -->
+     <!-- displays child component NewUserModal        -->
+    <NewUserModal style="padding-left: 40%"/>           
+    <!-- displays table -->
+    <Table isShowEditUser = "isShowEditModal"/>
+    <button @click="goTo()">Hello</button>
     <router-view/>
   </div>
 </template>
 
 <script>
+import Table from './components/Table';
+import NewUserModal from './components/NewUserModal';
+//import EditUser from './components/EditUser';
 export default {
-  name: 'App'
+  name: 'App',
+  data () {        
+     return{
+      isShowEditUser: false,
+    };    
+  },
+  components:{
+    NewUserModal,
+    Table,
+    //EditUser
+  },
+   props:{
+     showEditModal: Boolean,
+   },
+   methods:{
+     goTo: function(){
+       console.log(this.isShowEditUser)
+     }
+   }
+  
 }
 </script>
 
@@ -16,6 +51,7 @@ export default {
 
 #app {
   text-align: center;
-  margin-top: 150px;
+  margin-top: 15px;
 }
+
 </style>
