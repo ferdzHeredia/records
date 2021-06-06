@@ -38,7 +38,7 @@
                   <td>6084440</td>
                   <td><a href="#" class="text-succes" @click="goEditUser()"><i class="fas fa-edit">
                   </i></a></td>
-                  <td><a href="#" class="text-danger"><i class="fas fa-trash">
+                  <td><a href="#" class="text-danger" @click="goDeleteUser()"><i class="fas fa-trash">
                   </i></a></td>
                 </tr>
                 <tr class="text-center">
@@ -48,7 +48,7 @@
                   <td>6084440</td>
                   <td><a href="#" class="text-succes" @click="goEditUser()"><i icon="user" class="fas fa-edit">
                   </i></a></td>
-                  <td><a href="#" class="text-danger"><i class="fas fa-trash">
+                  <td><a href="#" class="text-danger" @click="goDeleteUser()"><i class="fas fa-trash">
                   </i></a></td>
                 </tr>
                 <tr class="text-center">
@@ -58,7 +58,7 @@
                   <td>6084440</td>
                   <td><a href="#" class="text-succes" @click="goEditUser()"><i class="fas fa-edit">
                   </i></a></td>
-                  <td><a href="#" class="text-danger"><i class="fas fa-trash">
+                  <td><a href="#" class="text-danger" @click="goDeleteUser()"><i class="fas fa-trash">
                   </i></a></td>
                 </tr>
               </tbody>
@@ -67,11 +67,16 @@
       
     </div> 
   <EditUser :issshowEditModal = "editModall"/>
+  <div>
+     <DeleteUser :isDeleteUser = "deleteModal"/>
+  </div>
+ 
   </div>
 </template>
 
 <script>
 import EditUser from './EditUser';
+import DeleteUser from './DeleteUser';
 export default {
   
   name: 'Table',
@@ -81,24 +86,40 @@ export default {
       successMsg: false,  //to display success message      
       isTableHeader: true,    //to display header of the table
       editModall: false,    //display edit user modal
+      deleteModal: false, //display DeleteUserModal
       
     };    
   },
-  components:{
-      EditUser
+  components:{  //components
+      EditUser,
+      DeleteUser,
   },
   
   methods:{
+        //function goEditUser triggers EditUser components to execute
       goEditUser: function(){        
-       
+        this.deleteModal = false;  //hide delete user
         this.editModall = !this.editModall;
         if(this.editModall === false )
         {
           this.editModall = true;
+        
         }
         console.log(this.editModall) 
 
       },
+        //this function triggers Delete user modal to be displayed
+      goDeleteUser: function(){
+        this.editModall = false;  //hide edit user modal
+        this.deleteModal = !this.deleteModal;
+        if(this.deleteModal === false ) 
+        {
+          this.deleteModal = true;
+          
+          console.log(this.deleteModal)
+        }
+
+      }
 
     }
 }

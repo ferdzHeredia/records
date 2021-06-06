@@ -45,7 +45,7 @@ export default {
 
     data() {
     return {
-         showEditModal: false,
+         showEditModalss: false,
     }
     }
     

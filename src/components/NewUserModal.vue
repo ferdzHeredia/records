@@ -6,7 +6,7 @@
                 <mdb-btn @click.native="showModal = true" color="info" icon="user">Add New User</mdb-btn>
                 <mdb-modal :show="showModal" @close="showModal = false" cascade class="text-left">
                 <mdb-modal-header class="primary-color white-text">
-                    <h4 class="title "><fa class=" fas fa-pencil-alt" /> Contact form</h4>
+                    <h4 class="title "><fa class=" fas fa-pencil-alt" /> Add User Form</h4>
                 </mdb-modal-header>
                 <mdb-modal-body class="grey-text">
                     <mdb-input size="sm" label="Your name" icon="user" group type="text" validate error="wrong" success="right"/>

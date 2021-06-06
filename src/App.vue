@@ -13,7 +13,6 @@
     <NewUserModal style="padding-left: 40%"/>           
     <!-- displays table -->
     <Table isShowEditUser = "isShowEditModal"/>
-    <button @click="goTo()">Hello</button>
     <router-view/>
   </div>
 </template>
@@ -38,9 +37,7 @@ export default {
      showEditModal: Boolean,
    },
    methods:{
-     goTo: function(){
-       console.log(this.isShowEditUser)
-     }
+    
    }
   
 }
