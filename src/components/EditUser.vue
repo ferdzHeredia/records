@@ -24,6 +24,7 @@
     </div>    
 </template>
 <script>
+import Vue from 'vue'
 import { mdbContainer, mdbRow, mdbCol, mdbInput,  mdbBtn,  mdbModal, mdbModalHeader, mdbModalBody, mdbModalFooter } from 'mdbvue';
 export default {
 
@@ -44,19 +45,18 @@ export default {
      phoneNum: String,
      EmailAdd: String,
      fullName: String,
+     UserInfoData: Array,
 
    },
 
     data() {
     return {
          showEditModalss: false,
-         
+        //  UserInfoData: [],         
     }
     },
     methods:{
         updateUserData: function(phoneNum, EmailAdd, fullName){
-
-            console.log(fullName, phoneNum, EmailAdd)
 
             let userInfo = [
                 fullName,
@@ -64,12 +64,18 @@ export default {
                 EmailAdd
             
             ]
-            console.log(userInfo)
+            //console.log(userInfo)
             this.UserInfoData = userInfo;
+
+            Vue.prototype.$dataUser = userInfo
+            //console.log(this.UserInfoData)
+            //this.$data = this.$dataUser
+        
             return userInfo
 
-        }
+        },
 
+   
     }
     
   }

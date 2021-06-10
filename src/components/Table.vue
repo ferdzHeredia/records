@@ -52,7 +52,8 @@
   <EditUser :issshowEditModal = "editModall"
   :phoneNum = "phone"
   :EmailAdd = "email"
-  :fullName = "name" 
+  :fullName = "name"
+  v-model="this.$dataUser"
   />
   <div>
      <DeleteUser :isDeleteUser = "deleteModal"/>
@@ -64,6 +65,7 @@
 <script>
 import EditUser from './EditUser';  
 import DeleteUser from './DeleteUser';
+import Vue from 'vue'
 export default {
   
   name: 'Table',
@@ -84,7 +86,7 @@ export default {
     };    
   },
   props: {
-    userInfoData: Array
+  
   },
   components:{  //components
       EditUser,
@@ -104,7 +106,7 @@ export default {
      
       let jsonResponse = await response.json();     //variable jsonResponse fetches the data from database through the rest Api
         
-        // not used- maps all the instances of the jsonResponse 
+      // not used - maps all the instances of the jsonResponse         
       let data = jsonResponse.map((userData) => {
           userData.dataa = [
             userData._id, 
@@ -115,8 +117,8 @@ export default {
 
           //data property the receives all the info from the jsonResponse
           this.users = jsonResponse
+          Vue.prototype.$recieveData
           
-          //returns data 
           return data        
       })
     },
@@ -134,7 +136,7 @@ export default {
         this.editModall = true;
         
       }
-       console.log(this.editModall) 
+      console.log(this.$dataUser)
 
     },
 
