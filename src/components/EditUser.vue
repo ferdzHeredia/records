@@ -9,9 +9,9 @@
                     <h4 class="title "><fa class=" fas fa-pencil-alt" /> Update form</h4>
                 </mdb-modal-header>
                 <mdb-modal-body class="grey-text">
-                    <mdb-input size="sm" label="Your name" icon="user" group type="text" validate error="wrong" success="right"/>
-                    <mdb-input size="sm" label="Your email" icon="envelope" group type="email" validate error="wrong" success="right"/>
-                    <mdb-input size="sm" label="Your Phone Number" icon="phone-square-alt" group type="tel" validate error="wrong" success="right"/>
+                    <mdb-input size="sm" label="Your name" v-model="fullName" icon="user" group type="text" validate error="wrong" success="right"/>
+                    <mdb-input size="sm" label="Your email" v-model="EmailAdd" icon="envelope" group type="email" validate error="wrong" success="right"/>
+                    <mdb-input size="sm" label="Your Phone Number" v-model="phoneNum" icon="phone-square-alt" group type="tel" validate error="wrong" success="right"/>
                 </mdb-modal-body>
                 <mdb-modal-footer>
                     <mdb-btn class="btn btn-outline-purple" @click.native="issshowEditModal = !issshowEditModal">Close</mdb-btn>
@@ -41,6 +41,10 @@ export default {
     },
      props:{
      issshowEditModal: Boolean,
+     phoneNum: String,
+     EmailAdd: String,
+     fullName: String,
+
    },
 
     data() {
