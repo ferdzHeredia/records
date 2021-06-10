@@ -16,8 +16,8 @@
     <div class="alert alert-success " v-if="successMsg">
       Success Message
     </div> 
-
-    <!-- display records    -->
+<button @click="fetchUserData()">Fetch User data</button>
+    <!-- display records  -->
      <div class="row">
       <div class="col-lg-12">
         <table class="table table-bordered table-striped">
@@ -31,36 +31,24 @@
               <th>Delete</th>              
           </thead>
           <tbody>
-                <tr class="text-center">
-                  <td>1</td>
-                  <td>Wolfamania</td>
-                  <td>wolfmanai@gmail.com</td>
-                  <td>6084440</td>
+            <!-- <tr v-for="user in users" v-bind:key="user.id"> 
+            <th scope="row">{{user.id}}</th>
+              <td>{{user.name}}</td>
+              <td>{{user.email}}</td>
+            <td>{{user.address.city}}</td>
+          </tr> -->
+                <tr class="text-center" v-for="user in users" v-bind:key="user._id">
+                  <td>{{index}}</td>
+                  <td>{{user.Name}}</td>
+                  <td>{{user.Email}}</td>
+                  <td>{{user.Phone}}</td>
                   <td><a href="#" class="text-succes" @click="goEditUser()"><i class="fas fa-edit">
                   </i></a></td>
                   <td><a href="#" class="text-danger" @click="goDeleteUser()"><i class="fas fa-trash">
                   </i></a></td>
+                  
                 </tr>
-                <tr class="text-center">
-                  <td>1</td>
-                  <td>Wolfamania</td>
-                  <td>wolfmanai@gmail.com</td>
-                  <td>6084440</td>
-                  <td><a href="#" class="text-succes" @click="goEditUser()"><i icon="user" class="fas fa-edit">
-                  </i></a></td>
-                  <td><a href="#" class="text-danger" @click="goDeleteUser()"><i class="fas fa-trash">
-                  </i></a></td>
-                </tr>
-                <tr class="text-center">
-                  <td>1</td>
-                  <td>Wolfamania</td>
-                  <td>wolfmanai@gmail.com</td>
-                  <td>6084440</td>
-                  <td><a href="#" class="text-succes" @click="goEditUser()"><i class="fas fa-edit">
-                  </i></a></td>
-                  <td><a href="#" class="text-danger" @click="goDeleteUser()"><i class="fas fa-trash">
-                  </i></a></td>
-                </tr>
+                
               </tbody>
         </table>
       </div>
@@ -82,6 +70,8 @@ export default {
   name: 'Table',
    data () {        
      return{
+      index: 1,
+      users: null,
       errorMsg: false,  //to display error message
       successMsg: false,  //to display success message      
       isTableHeader: true,    //to display header of the table
@@ -96,6 +86,38 @@ export default {
   },
   
   methods:{
+
+    async fetchUserData() {
+
+    let url = "http://localhost:3333/user_data/";
+
+      this.loading = true;
+      let response = await fetch(       
+        url
+      );
+      
+      //let jsonResponse;
+      let jsonResponse = await response.json();
+       let data = jsonResponse.map((userData) => {
+        userData.dataa = [
+          userData._id, 
+          userData.Name,
+          userData.Email,
+          userData.Phone         
+         
+        ];
+        this.users = jsonResponse
+        console.log(userData.dataa);
+       this.index = 0;
+       this.index++
+       console.log(this.index)
+       
+        //console.log(jsonResponse)
+        return data
+       // index is used to identify single answer
+    })
+    },
+    
         //function goEditUser triggers EditUser components to execute
       goEditUser: function(){        
         this.deleteModal = false;  //hide delete user
