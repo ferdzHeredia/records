@@ -69,6 +69,7 @@ export default {
   name: 'Table',
    data () {        
      return{
+      userDataa:[],
       phone:'',
       email:'',
       name:'', 
@@ -81,6 +82,9 @@ export default {
       deleteModal: false, //display DeleteUserModal
       
     };    
+  },
+  props: {
+    userInfoData: Array
   },
   components:{  //components
       EditUser,

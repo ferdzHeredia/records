@@ -15,7 +15,7 @@
                 </mdb-modal-body>
                 <mdb-modal-footer>
                     <mdb-btn class="btn btn-outline-purple" @click.native="issshowEditModal = !issshowEditModal">Close</mdb-btn>
-                    <mdb-btn outline="btn btn-outline-purple">Update User</mdb-btn>
+                    <mdb-btn outline="btn btn-outline-purple" @click="updateUserData(phoneNum, EmailAdd, fullName)">Update User</mdb-btn>
                 </mdb-modal-footer>
                 </mdb-modal>
             </mdb-col>
@@ -50,7 +50,26 @@ export default {
     data() {
     return {
          showEditModalss: false,
+         
     }
+    },
+    methods:{
+        updateUserData: function(phoneNum, EmailAdd, fullName){
+
+            console.log(fullName, phoneNum, EmailAdd)
+
+            let userInfo = [
+                fullName,
+                phoneNum,
+                EmailAdd
+            
+            ]
+            console.log(userInfo)
+            this.UserInfoData = userInfo;
+            return userInfo
+
+        }
+
     }
     
   }
