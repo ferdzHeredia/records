@@ -37,9 +37,9 @@
                   <td>{{user.Name}}</td>
                   <td>{{user.Email}}</td>
                   <td>{{user.Phone}}</td>
-                  <td><a href="#" class="text-succes" @click="goEditUser(user.Name, user.Email, user.Phone )"><i class="fas fa-edit">
+                  <td><a href="#" class="text-succes" @click="goEditUser(user.Name, user.Email, user.Phone, user._id )"><i class="fas fa-edit">
                   </i></a></td>
-                  <td><a href="#" class="text-danger" @click="goDeleteUser()"><i class="fas fa-trash">
+                  <td><a href="#" class="text-danger" @click="goDeleteUser(user._id, user.Name)"><i class="fas fa-trash">
                   </i></a></td>
                   
                 </tr>
@@ -117,14 +117,14 @@ export default {
 
           //data property the receives all the info from the jsonResponse
           this.users = jsonResponse
-          Vue.prototype.$recieveData
+          
           
           return data        
       })
     },
     
     //function goEditUser triggers EditUser components to execute
-    goEditUser: function(Name, Email, Phone){ 
+    goEditUser: function(Name, Email, Phone, userId){ 
 
       this.name = Name;
       this.email = Email;
@@ -136,19 +136,20 @@ export default {
         this.editModall = true;
         
       }
-      console.log(this.$dataUser)
+      Vue.prototype.$editUser = [Name, Email, Phone, userId]
+      console.log(this.$recieveData, "hello")
 
     },
 
     //this function triggers Delete user modal to be displayed
-    goDeleteUser: function(){
+    goDeleteUser: function(user, userName){
         this.editModall = false;  //hide edit user modal
         this.deleteModal = !this.deleteModal;   //triggers to display and hide the delete modal form
         if(this.deleteModal === false )   //checks if boolean delete modal is set to false
         {
           this.deleteModal = true;    //assigns deletemodal to true
         }
-
+        Vue.prototype.$recieveData = [user, userName] 
     }
 
   },

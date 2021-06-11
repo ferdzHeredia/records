@@ -24,60 +24,83 @@
     </div>    
 </template>
 <script>
-import Vue from 'vue'
-import { mdbContainer, mdbRow, mdbCol, mdbInput,  mdbBtn,  mdbModal, mdbModalHeader, mdbModalBody, mdbModalFooter } from 'mdbvue';
-export default {
+    import Vue from 'vue'
+    import axios from 'axios'
+    import VueAxios from 'vue-axios'
+      Vue.use(VueAxios, axios)
 
-    name: 'EditUser',
-    components: {
-      mdbContainer,
-      mdbRow,
-      mdbCol,
-      mdbInput,
-      mdbBtn,      
-      mdbModal,
-      mdbModalHeader,
-      mdbModalBody,
-      mdbModalFooter
-    },
-     props:{
-     issshowEditModal: Boolean,
-     phoneNum: String,
-     EmailAdd: String,
-     fullName: String,
-     UserInfoData: Array,
+    import { mdbContainer, mdbRow, mdbCol, mdbInput,  mdbBtn,  mdbModal, mdbModalHeader, mdbModalBody, mdbModalFooter } from 'mdbvue';
+    export default {
 
-   },
-
-    data() {
-    return {
-         showEditModalss: false,
-        //  UserInfoData: [],         
-    }
-    },
-    methods:{
-        updateUserData: function(phoneNum, EmailAdd, fullName){
-
-            let userInfo = [
-                fullName,
-                phoneNum,
-                EmailAdd
-            
-            ]
-            //console.log(userInfo)
-            this.UserInfoData = userInfo;
-
-            Vue.prototype.$dataUser = userInfo
-            //console.log(this.UserInfoData)
-            //this.$data = this.$dataUser
-        
-            return userInfo
-
+        name: 'EditUser',
+        components: {
+        mdbContainer,
+        mdbRow,
+        mdbCol,
+        mdbInput,
+        mdbBtn,      
+        mdbModal,
+        mdbModalHeader,
+        mdbModalBody,
+        mdbModalFooter
         },
+        props:{
+        issshowEditModal: Boolean,
+        phoneNum: String,
+        EmailAdd: String,
+        fullName: String,
+        UserInfoData: Array,
 
-   
-    }
+    },
+
+        data() {
+        return {
+            showEditModalss: false,
+            userInfo: []
+            //  UserInfoData: [],         
+        }
+        },
+        methods:{
+            async updateUserData(phoneNum, EmailAdd, fullName){
+                
+
+                let userInfo = [
+                    fullName,
+                    phoneNum,
+                    EmailAdd
+                
+                ]
+                //console.log(userInfo)
+                this.UserInfoData = userInfo;
+
+                Vue.prototype.$dataUser = userInfo
+                //const url = "http://localhost:3333/user_data/"
+
+        //         console.log(userInfo, "userinfo")
+        //         axios.put(`${url}${this.$editUser[3]}`).then((result) =>{
+                    
+        //        console.log(result)
+               
+        //    })
+
+            //pracice
+           axios.put('http://localhost:3333/user_data/' + this.$editUser[3], 
+                { 
+                    fullName: 'fullName', 
+                    phoneNum: 'phoneNum',
+                    EmailAdd: 'EmailAdd' 
+                }, 
+                {
+                    // Config
+                }
+            );
+
+        
+            },
+
     
-  }
+        }
+        
+    }
     
 </script>

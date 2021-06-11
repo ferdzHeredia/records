@@ -31,7 +31,7 @@ import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 
 import { mdbContainer, mdbRow, mdbCol, mdbInput,  mdbBtn,  mdbModal, mdbModalHeader, mdbModalBody, mdbModalFooter } from 'mdbvue';
-//import func from 'vue-editor-bridge'
+
 export default {
     name: 'NewUserModal',
     components: {
@@ -58,9 +58,6 @@ export default {
     }
     },
      props:{     
-    //  newPhoneNum: String,
-    //  newEmailAdd: String,
-    //  newFullName: String,
      newUserInfoData: Array,
    },
    methods: {
@@ -76,17 +73,7 @@ export default {
                console.log(this.newUser)
            })
 
-           window.location.reload()
-        //   axios.post('/user', {
-        //         firstName: 'Fred',
-        //         lastName: 'Flintstone'
-        //     })
-        //     .then(function (response) {
-        //         console.log(response);
-        //     })
-        //     .catch(function (error) {
-        //         console.log(error);
-        //     });           
+           window.location.reload()          
        }
    }
 }
