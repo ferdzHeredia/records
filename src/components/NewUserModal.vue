@@ -62,18 +62,27 @@ export default {
    },
    methods: {
        addNewUser: function(fname, email, phone){
-           this.newUser.name = fname
+           
+           //exception handling (try catch)
+           try {
+            
+            //newUser recieves user's data
+            this.newUser.name = fname
             this.newUser.email = email
-           this.newUser.phone = phone
+            this.newUser.phone = phone
           
 
-           this.axios.post("http://localhost:3333/user_data/", this.newUser)
-           .then((result) =>{
-               console.log(result)
-               console.log(this.newUser)
-           })
+            this.axios.post("http://localhost:3333/user_data/", this.newUser) //will post the User's data inside the database user_data
+            .then((result) =>{
+                console.log(result)
+                console.log(this.newUser)
+                })
+           } 
+           catch (error) {
+              console.log(error) //throws error on console
+           }
 
-           window.location.reload()          
+           window.location.reload() //reloads window          
        }
    }
 }
