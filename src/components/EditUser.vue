@@ -55,45 +55,26 @@
 
         data() {
         return {
-            showEditModalss: false,
-            userInfo: []
-            //  UserInfoData: [],         
+            showEditModalss: false
         }
         },
         methods:{
             async updateUserData(phoneNum, EmailAdd, fullName){
                 
+                //url used for the put function 
+            const url = "http://localhost:3333/user_data/"
 
-                let userInfo = [
-                    fullName,
-                    phoneNum,
-                    EmailAdd
-                
-                ]
-                //console.log(userInfo)
-                this.UserInfoData = userInfo;
 
-                Vue.prototype.$dataUser = userInfo
-                //const url = "http://localhost:3333/user_data/"
-
-        //         console.log(userInfo, "userinfo")
-        //         axios.put(`${url}${this.$editUser[3]}`).then((result) =>{
-                    
-        //        console.log(result)
+            //Try to update the info
+            try{
+                await axios.put(`${url}${this.$editUser[3]}`, { Name: fullName, Email:EmailAdd, Phone: phoneNum }); //pushes the data using the put method with the api 
+            }
+            catch(e)//Catches any error and outputs it to the console for debuguging 
+            {
+                console.log(e);
+            }
+                 window.location.reload();//reload the page
                
-        //    })
-
-            //pracice
-           axios.put('http://localhost:3333/user_data/' + this.$editUser[3], 
-                { 
-                    fullName: 'fullName', 
-                    phoneNum: 'phoneNum',
-                    EmailAdd: 'EmailAdd' 
-                }, 
-                {
-                    // Config
-                }
-            );
 
         
             },
