@@ -1,19 +1,30 @@
 <template>
   <div class="container">
-    <div class="row mt-3">
-      <div class="col-lg-6 ">        
-        <h3 class="text-info" >Registered Users</h3>
+    <div class="text-center">        
+        <h3 class="text-info mt-4" >Registered Users</h3>
       </div>
-      <div class="col-lg-6"> 
-        <!-- displays child component NewUserModal        -->
-       <NewUser/> 
-            
-      </div>      
-    </div>
-    <mdb-form-inline class="md-form">
+
+
+    <div class="row ml-5">
+
+      <div class="col-lg-6 pl-5">
+        <mdb-form-inline>
         <mdbIcon icon="search" />
         <mdb-input type="text" placeholder="Search" aria-label="Search"/>
-      </mdb-form-inline>       
+        </mdb-form-inline> 
+      </div> 
+
+
+      <div class="col-lg-6 mt-4 pl-5"> 
+        <!-- displays child component NewUserModal        -->
+       <NewUser/> 
+      </div>  
+ 
+  
+    </div>
+
+    
+          
     <hr class="bg-info">
     <div class="alert alert-danger" v-if="errorMsg">
       Error Message
