@@ -6,9 +6,14 @@
       </div>
       <div class="col-lg-6"> 
         <!-- displays child component NewUserModal        -->
-       <NewUser/>
-      </div>
+       <NewUser/> 
+            
+      </div>      
     </div>
+    <mdb-form-inline class="md-form">
+        <mdbIcon icon="search" />
+        <mdb-input type="text" placeholder="Search" aria-label="Search"/>
+      </mdb-form-inline>       
     <hr class="bg-info">
     <div class="alert alert-danger" v-if="errorMsg">
       Error Message
@@ -48,6 +53,7 @@
                 </tr>                
               </tbody>
         </table>
+        
       </div>
       
     </div> 
@@ -66,6 +72,8 @@
 </template>
 
 <script>
+import {mdbInput, mdbFormInline, mdbIcon} from 'mdbvue';
+
 import EditUser from './EditUser';  
 import DeleteUser from './DeleteUser';
 import NewUser from './NewUserModal';
@@ -95,6 +103,9 @@ export default {
   
   },
   components:{  //components
+      mdbInput,
+      mdbIcon,
+      mdbFormInline,
       EditUser,
       DeleteUser,
       NewUser,
@@ -203,4 +214,5 @@ export default {
   background-color: #078CB4;
   color: white;
 }
+
 </style>

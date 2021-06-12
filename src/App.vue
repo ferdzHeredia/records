@@ -2,16 +2,8 @@
   <div id="app">
     <div class= "container-fluid" >
       <div class="row bg-dark">
-        <div class="col lg-12 text-white">
-          <p text=" center text-light display-4 pt-2 ">Crud Application Using Vuejs PHP and MSQLI</p>
-        </div>
       </div>
    </div>
-   <!-- displays edit user -->
-   <!-- <EditUser :issshowEditModal = "!isShowEditModal" /> -->
-     <!-- displays child component NewUserModal        -->
-    <!-- <NewUserModal style="padding-left: 40%"/>            -->
-    <!-- displays table -->
     <Table isShowEditUser = "isShowEditModal"/>
     <router-view/>
   </div>
@@ -19,8 +11,6 @@
 
 <script>
 import Table from './components/Table';
-//import NewUserModal from './components/NewUserModal';
-//import EditUser from './components/EditUser';
 export default {
   name: 'App',
   data () {        
@@ -29,9 +19,7 @@ export default {
     };    
   },
   components:{
-    //NewUserModal,
     Table,
-    //EditUser
   },
    props:{
      showEditModal: Boolean,

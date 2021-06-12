@@ -53,7 +53,6 @@
         danger: false,
         id: '',
         Name: '',
-        //console.log(userName)
       };
     },
     methods: {
