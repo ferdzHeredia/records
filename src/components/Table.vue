@@ -57,10 +57,11 @@
   :fullName = "name"
   />
   <div>
-    
      <DeleteUser :isDeleteUser = "deleteModal"/>
   </div>
- 
+   <div>
+     <InfoUser :isinfoModal = "infoModal"/>
+  </div>
   </div>
 </template>
 
@@ -68,6 +69,7 @@
 import EditUser from './EditUser';  
 import DeleteUser from './DeleteUser';
 import NewUser from './NewUserModal';
+import InfoUser from './InfoUser';
 import Vue from 'vue'
 export default {
   
@@ -85,6 +87,7 @@ export default {
       isTableHeader: true,    //to display header of the table
       editModall: false,    //display edit user modal
       deleteModal: false, //display DeleteUserModal
+      infoModal: false,
       
     };    
   },
@@ -94,7 +97,8 @@ export default {
   components:{  //components
       EditUser,
       DeleteUser,
-      NewUser
+      NewUser,
+      InfoUser,
   },
   
   methods:{
@@ -151,6 +155,18 @@ export default {
         
       }
       Vue.prototype.$editUser = [Name, Email, Phone, userId]
+
+    },
+    details: function(Name, Email, Phone)
+    {
+      this.infoModal = !this.infoModal;
+      if(this.infoModal === false )
+      {
+        this.infoModal = true;
+        
+      }
+      Vue.prototype.$infoUser = [Name, Email, Phone]
+
 
     },
 
