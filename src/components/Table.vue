@@ -11,7 +11,7 @@
        
         <mdb-form-inline slot="reference" >
           <mdbIcon icon="search" class="pr-2" /> 
-          <mdb-input type="text" v-model="search" placeholder="Search Keyword" aria-label="Search"/> 
+          <mdb-input type="text" v-model="search" placeholder="Search Keyword" aria-label="Search" v-on:change="filterUsers"/> 
         <mdb-dropdown class="pl-5" >
             <mdb-dropdown-toggle slot="toggle" color="info">{{category}}</mdb-dropdown-toggle>
             <mdb-dropdown-menu>
@@ -52,7 +52,8 @@
               <th>Details</th>              
           </thead>
           <tbody>
-                <tr class="text-center" v-for="(user, index) in filterUsers" v-bind:key="user._id">
+           
+                <tr class="text-center" v-for="(user, index) in pageOfItems" v-bind:key="user._id">
                   <td>{{++index}}</td>
                   <td>{{user.Name}}</td>
                   <td>{{user.Email}}</td>
@@ -63,15 +64,13 @@
                   </i></a></td>
                    <td><a href="#" class="text-info" @click="details(user.Name, user.Email, user.Phone)"><i class="fas fa-info-circle"> 
                   </i></a></td>
-        
-                </tr>                
+                 
+                </tr>  
+                  
               </tbody>
         </table>
-        
-        <div class="pb-3 pt-3">  asas
-            <jw-pagination :pageSize=2 :items="users" @changePage="onChangePage">{{items}}</jw-pagination>
-          <!-- <jw-pagination :maxPages=2 :items="users" @changePage="onChangePage"></jw-pagination> -->
-          </div>
+            <jw-pagination :pageSize=2 :items="users" @changePage="onChangePage" >     </jw-pagination>       
+   
       </div>
     </div> 
   <EditUser :issshowEditModal = "editModall"
@@ -105,7 +104,7 @@ export default {
   name: 'Table',
    data () {        
      return{
-      items: [],
+      items: '',
       pageOfItems: [],
       category: 'categories',
       categories: ['Name', 'Email','Phone Number'],
@@ -122,6 +121,7 @@ export default {
       editModall: false,    //display edit user modal
       deleteModal: false, //display DeleteUserModal
       infoModal: false,
+      filteringInfo: false,
       
     };    
   },
@@ -160,20 +160,20 @@ export default {
       let jsonResponse = await response.json();     //variable jsonResponse fetches the data from database through the rest Api
         
       // not used - maps all the instances of the jsonResponse         
-      let data = jsonResponse.map((userData) => {
-          userData.dataa = [
-            userData._id, 
-            userData.Name,
-            userData.Email,
-            userData.Phone         
-          ];
+      // let data = jsonResponse.map((userData) => {
+      //     userData.dataa = [
+      //       userData._id, 
+      //       userData.Name,
+      //       userData.Email,
+      //       userData.Phone         
+      //     ];
 
           //data property the receives all the info from the jsonResponse
           this.users = jsonResponse
           
           
-          return data        
-      })
+          return  this.users        
+      //})
         
       }
       catch(e)
@@ -234,28 +234,60 @@ export default {
     {
       this.category = index
     },
-    onChangePage(pageOfItems){
+         onChangePage: function(pageOfItems){
       try {
-        console.log(pageOfItems)
-      this.pageOfItems = pageOfItems;
+
+      this.pageOfItems = pageOfItems
+
+    
+      if (this.search === '')
+          this.filteringInfo = false
+        else
+          this.filteringInfo = true
+
+
+
+      
+      if(this.filteringInfo === true)
+      {
+        this.pageSize = 2
+        this.pageOfItems = this.filterUsers
+       
+      }
+
+        console.log(this.pageOfItems)
+
+     window.location.reload
       } catch (error) {
         console.log(error)
+        return false;
       }
       
-    }
+    },
 
+    //  checkExist(event){
+
+        
+
+    //    } 
+  
   },
   computed:
   {
    filterUsers: function()
   {
-      
+
+
       try { 
           let data = ''
           switch(this.category) {
             case 'Name':
-             data =  this.users.filter(user => user.Name.toLowerCase().includes(this.search.toLowerCase()))
+              {
+              data =  this.users.filter(user => user.Name.toLowerCase().includes(this.search.toLowerCase()))
+              console.log("finding searches")
+              //this.onChangePage()
               return data
+              }
             case 'Email':
                 data =  this.users.filter(user => user.Email.toLowerCase().includes(this.search.toLowerCase()))
              return data
@@ -264,6 +296,7 @@ export default {
               return data
             default:
              data = this.users.filter(user => user.Name.toLowerCase().includes(this.search.toLowerCase()))
+           //  console.log(data)
               return data
 
           }
@@ -272,11 +305,9 @@ export default {
         console.log(error)
         return false
       }
-
-   
-         
-   
   },
+ 
+
   },
   //method 2 for fetching data
   beforeMount()
