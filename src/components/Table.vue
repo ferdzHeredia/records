@@ -68,6 +68,10 @@
               </tbody>
         </table>
         
+        <div class="pb-3 pt-3">  asas
+            <jw-pagination :pageSize=2 :items="users" @changePage="onChangePage">{{items}}</jw-pagination>
+          <!-- <jw-pagination :maxPages=2 :items="users" @changePage="onChangePage"></jw-pagination> -->
+          </div>
       </div>
     </div> 
   <EditUser :issshowEditModal = "editModall"
@@ -92,11 +96,17 @@ import DeleteUser from './DeleteUser';
 import NewUser from './NewUserModal';
 import InfoUser from './InfoUser';
 import Vue from 'vue'
+
+import JwPagination from 'jw-vue-pagination';
+Vue.component('jw-pagination', JwPagination);
+
 export default {
   
   name: 'Table',
    data () {        
      return{
+      items: [],
+      pageOfItems: [],
       category: 'categories',
       categories: ['Name', 'Email','Phone Number'],
       search:'',
@@ -223,6 +233,15 @@ export default {
     change: function(index)
     {
       this.category = index
+    },
+    onChangePage(pageOfItems){
+      try {
+        console.log(pageOfItems)
+      this.pageOfItems = pageOfItems;
+      } catch (error) {
+        console.log(error)
+      }
+      
     }
 
   },
