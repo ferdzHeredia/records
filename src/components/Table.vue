@@ -157,7 +157,7 @@ export default {
       Vue.prototype.$editUser = [Name, Email, Phone, userId]
 
     },
-    details: function(Name, Email, Phone)
+    async details(Name, Email, Phone)
     {
       this.infoModal = !this.infoModal;
       if(this.infoModal === false )
@@ -165,8 +165,9 @@ export default {
         this.infoModal = true;
         
       }
-      Vue.prototype.$infoUser = [Name, Email, Phone]
-
+      Vue.prototype.$Name = Name
+      Vue.prototype.$EmailInfo = Email
+      Vue.prototype.$Contact = Phone
 
     },
 

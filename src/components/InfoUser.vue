@@ -54,9 +54,9 @@
         },
         methods:{
             UserInfo: function(){
-                this.name = this.$infoUser[0]
-                 this.email = this.$infoUser[1]
-                  this.contact = this.$infoUser[2]
+                this.name = this.$Name,
+                 this.email = this.$EmailInfo,
+                  this.contact = this.$Contact
 
             },
 
