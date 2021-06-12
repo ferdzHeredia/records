@@ -9,9 +9,22 @@
 
       <div class="col-lg-6 pl-5">
         <mdb-form-inline>
-        <mdbIcon icon="search" />
-        <mdb-input type="text" placeholder="Search" aria-label="Search"/>
+        <mdbIcon icon="search" class="pr-2" /> 
+        <mdb-input type="text" v-model="search" placeholder="Search Keyword" aria-label="Search"/> 
+          
+        <mdb-dropdown class="pl-5" >
+            <mdb-dropdown-toggle slot="toggle" color="info">{{category}}</mdb-dropdown-toggle>
+            <mdb-dropdown-menu>
+              <mdb-dropdown-item @click="change(categories[0])">{{categories[0]}}</mdb-dropdown-item>
+              <mdb-dropdown-item @click="change(categories[1])">{{categories[1]}}</mdb-dropdown-item>
+              <mdb-dropdown-item @click="change(categories[2])">{{categories[2]}}</mdb-dropdown-item>
+            </mdb-dropdown-menu>
+        </mdb-dropdown>
+
         </mdb-form-inline> 
+
+          
+
       </div> 
 
 
@@ -49,7 +62,7 @@
               <th>Details</th>              
           </thead>
           <tbody>
-                <tr class="text-center" v-for="(user, index) in users" v-bind:key="user._id">
+                <tr class="text-center" v-for="(user, index) in filterUsers" v-bind:key="user._id">
                   <td>{{++index}}</td>
                   <td>{{user.Name}}</td>
                   <td>{{user.Email}}</td>
@@ -66,7 +79,6 @@
         </table>
         
       </div>
-      
     </div> 
   <EditUser :issshowEditModal = "editModall"
   :phoneNum = "phone"
@@ -83,7 +95,7 @@
 </template>
 
 <script>
-import {mdbInput, mdbFormInline, mdbIcon} from 'mdbvue';
+import {mdbInput, mdbFormInline, mdbIcon, mdbDropdown, mdbDropdownItem, mdbDropdownMenu, mdbDropdownToggle } from 'mdbvue';       
 
 import EditUser from './EditUser';  
 import DeleteUser from './DeleteUser';
@@ -95,6 +107,9 @@ export default {
   name: 'Table',
    data () {        
      return{
+      category: 'categories',
+      categories: ['Name', 'Email','Phone Number'],
+      search:'',
       userDataa:[],
       phone:'',
       email:'',
@@ -121,6 +136,10 @@ export default {
       DeleteUser,
       NewUser,
       InfoUser,
+      mdbDropdown, 
+      mdbDropdownItem, 
+      mdbDropdownMenu, 
+      mdbDropdownToggle
   },
   
   methods:{
@@ -209,8 +228,45 @@ export default {
         }
         Vue.prototype.$recieveData = [user, userName] 
         Vue.prototype.$name = userName
+    },
+    change: function(index)
+    {
+      this.category = index
     }
 
+  },
+  computed:
+  {
+   filterUsers: function()
+  {
+      
+      try { 
+          let data = ''
+          switch(this.category) {
+            case 'Name':
+             data =  this.users.filter(user => user.Name.toLowerCase().includes(this.search.toLowerCase()))
+              return data
+            case 'Email':
+                data =  this.users.filter(user => user.Email.toLowerCase().includes(this.search.toLowerCase()))
+             return data
+            case 'Phone Number':
+              data =  this.users.filter(user => user.Phone.toLowerCase().includes(this.search.toLowerCase()))
+              return data
+            default:
+             data = this.users.filter(user => user.Name.toLowerCase().includes(this.search.toLowerCase()))
+              return data
+
+          }
+     
+      } catch (error) {
+        console.log(error)
+        return false
+      }
+
+   
+         
+   
+  },
   },
   //method 2 for fetching data
   beforeMount()
