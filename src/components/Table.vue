@@ -148,6 +148,7 @@ export default {
       this.email = Email;
       this.phone = Phone;
       this.deleteModal = false;  //hide delete user
+      this.infoModal = false;  //hide edit user modal
       this.editModall = !this.editModall;
       if(this.editModall === false )
       {
@@ -159,6 +160,9 @@ export default {
     },
     async details(Name, Email, Phone)
     {
+      
+      this.deleteModal = false;  //hide delete user
+       this.editModall = false;  //hide edit user modal
       this.infoModal = !this.infoModal;
       if(this.infoModal === false )
       {
@@ -174,6 +178,7 @@ export default {
     //this function triggers Delete user modal to be displayed
      async goDeleteUser(user, userName)
      {
+        this.infoModal = false;  //hide delete user
         this.editModall = false;  //hide edit user modal
         this.deleteModal = !this.deleteModal;   //triggers to display and hide the delete modal form
         if(this.deleteModal === false )   //checks if boolean delete modal is set to false
