@@ -53,7 +53,6 @@
   :phoneNum = "phone"
   :EmailAdd = "email"
   :fullName = "name"
-  v-model="this.$dataUser"
   />
   <div>
      <DeleteUser :isDeleteUser = "deleteModal"/>
@@ -100,7 +99,10 @@ export default {
 
       let url = "http://localhost:3333/user_data/";
       //this.loading = true;
-      let response = await fetch(       
+
+      try 
+      {
+              let response = await fetch(       
           url
       );
      
@@ -121,6 +123,13 @@ export default {
           
           return data        
       })
+        
+      }
+      catch(e)
+      {
+        console.log(e)
+      }
+
     },
     
     //function goEditUser triggers EditUser components to execute
@@ -137,12 +146,12 @@ export default {
         
       }
       Vue.prototype.$editUser = [Name, Email, Phone, userId]
-      console.log(this.$recieveData, "hello")
 
     },
 
     //this function triggers Delete user modal to be displayed
-    goDeleteUser: function(user, userName){
+     async goDeleteUser(user, userName)
+     {
         this.editModall = false;  //hide edit user modal
         this.deleteModal = !this.deleteModal;   //triggers to display and hide the delete modal form
         if(this.deleteModal === false )   //checks if boolean delete modal is set to false
@@ -150,6 +159,7 @@ export default {
           this.deleteModal = true;    //assigns deletemodal to true
         }
         Vue.prototype.$recieveData = [user, userName] 
+        Vue.prototype.$name = userName
     }
 
   },

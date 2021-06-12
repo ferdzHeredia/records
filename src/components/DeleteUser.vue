@@ -2,7 +2,7 @@
   <div>
     
     <!-- Central Modal Medium Success -->
-    <mdb-modal :show="isDeleteUser" @close="isDeleteUser = !isDeleteUser" danger>
+    <mdb-modal  :show="isDeleteUser " :v-model="UserName()"  @close="isDeleteUser = !isDeleteUser" danger>
       <!--Header-->
       <mdb-modal-header>
         <mdb-modal-title>Delete User</mdb-modal-title>
@@ -13,7 +13,7 @@
           <mdb-col col="3" class="text-center"><mdb-icon icon="trash" size="4x"/></mdb-col>
           <mdb-col col="9">
             <h5><strong> Are you Sure you want to Delete This User?</strong></h5>
-            <h6><strong> You Are Deleting {{this.$recieveData[1]}}</strong></h6>
+            <h6><strong> You Are Deleting "{{ Name }}"</strong></h6>
             
           </mdb-col>
         </mdb-row>
@@ -51,15 +51,19 @@
     data() {
       return {
         danger: false,
-        id: ''
+        id: '',
+        Name: '',
+        //console.log(userName)
       };
     },
     methods: {
       deleteUser: function(){
         
+        const _id = this.$recieveData[0];
+        const url = "http://localhost:3333/user_data/"
         //exception handling (try and catch)
         try{
-          this.axios.delete("http://localhost:3333/user_data/" + this.$recieveData[0]).then((result) =>{
+          this.axios.delete( url + _id ).then((result) =>{
                console.log(result)
                console.log(this.newUser)
            })
@@ -72,7 +76,11 @@
         
         window.location.reload() //reload page
 
-    }
+    },
+      UserName: function(){
+      this.Name = this.$name
+
+    },
     },
   }
 </script>
