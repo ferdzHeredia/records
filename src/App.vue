@@ -10,7 +10,7 @@
    <!-- displays edit user -->
    <!-- <EditUser :issshowEditModal = "!isShowEditModal" /> -->
      <!-- displays child component NewUserModal        -->
-    <NewUserModal style="padding-left: 40%"/>           
+    <!-- <NewUserModal style="padding-left: 40%"/>            -->
     <!-- displays table -->
     <Table isShowEditUser = "isShowEditModal"/>
     <router-view/>
@@ -19,7 +19,7 @@
 
 <script>
 import Table from './components/Table';
-import NewUserModal from './components/NewUserModal';
+//import NewUserModal from './components/NewUserModal';
 //import EditUser from './components/EditUser';
 export default {
   name: 'App',
@@ -29,7 +29,7 @@ export default {
     };    
   },
   components:{
-    NewUserModal,
+    //NewUserModal,
     Table,
     //EditUser
   },

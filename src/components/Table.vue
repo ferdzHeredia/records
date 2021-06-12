@@ -6,7 +6,7 @@
       </div>
       <div class="col-lg-6"> 
         <!-- displays child component NewUserModal        -->
-       <new-user-modal/>
+       <NewUser/>
       </div>
     </div>
     <hr class="bg-info">
@@ -37,9 +37,9 @@
                   <td>{{user.Name}}</td>
                   <td>{{user.Email}}</td>
                   <td>{{user.Phone}}</td>
-                  <td><a href="#" class="text-succes" @click="goEditUser(user.Name, user.Email, user.Phone, user._id )"><i class="fas fa-edit">
+                  <td><a class="text-succes" @click="goEditUser(user.Name, user.Email, user.Phone, user._id )"><i class="fas fa-edit">
                   </i></a></td>
-                  <td><a href="#" class="text-danger" @click="goDeleteUser(user._id, user.Name)"><i class="fas fa-trash">
+                  <td><a class="text-danger" @click="goDeleteUser(user._id, user.Name)"><i class="fas fa-trash">
                   </i></a></td>
                   
                 </tr>
@@ -55,6 +55,7 @@
   :fullName = "name"
   />
   <div>
+    
      <DeleteUser :isDeleteUser = "deleteModal"/>
   </div>
  
@@ -64,6 +65,7 @@
 <script>
 import EditUser from './EditUser';  
 import DeleteUser from './DeleteUser';
+import NewUser from './NewUserModal';
 import Vue from 'vue'
 export default {
   
@@ -90,6 +92,7 @@ export default {
   components:{  //components
       EditUser,
       DeleteUser,
+      NewUser
   },
   
   methods:{
