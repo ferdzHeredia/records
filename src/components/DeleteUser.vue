@@ -5,7 +5,7 @@
     <mdb-modal  :show="isDeleteUser " :v-model="UserName()"  @close="isDeleteUser = !isDeleteUser" danger>
       <!--Header-->
       <mdb-modal-header>
-        <mdb-modal-title>Delete User</mdb-modal-title>
+        <mdb-modal-title><mdb-icon class="text-white" icon="trash"/> Delete User</mdb-modal-title>
       </mdb-modal-header>
       <!--Body-->
       <mdb-modal-body>

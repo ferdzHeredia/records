@@ -29,7 +29,8 @@
               <th>Email</th>
               <th>Phone</th>
               <th>Edit</th>
-              <th>Delete</th>              
+              <th>Delete</th> 
+              <th>Details</th>              
           </thead>
           <tbody>
                 <tr class="text-center" v-for="(user, index) in users" v-bind:key="user._id">
@@ -37,13 +38,14 @@
                   <td>{{user.Name}}</td>
                   <td>{{user.Email}}</td>
                   <td>{{user.Phone}}</td>
-                  <td><a class="text-succes" @click="goEditUser(user.Name, user.Email, user.Phone, user._id )"><i class="fas fa-edit">
+                  <td><a href="#" class="text-succes" @click="goEditUser(user.Name, user.Email, user.Phone, user._id )"><i class="fas fa-edit">
                   </i></a></td>
-                  <td><a class="text-danger" @click="goDeleteUser(user._id, user.Name)"><i class="fas fa-trash">
+                  <td><a href="#" class="text-danger" @click="goDeleteUser(user._id, user.Name)"><i class="fas fa-trash">
                   </i></a></td>
-                  
-                </tr>
-                
+                   <td><a href="#" class="text-info" @click="details(user.Name, user.Email, user.Phone)"><i class="fas fa-info-circle"> 
+                  </i></a></td>
+        
+                </tr>                
               </tbody>
         </table>
       </div>

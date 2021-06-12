@@ -6,7 +6,7 @@
                 
                 <mdb-modal :show="issshowEditModal" @close="issshowEditModal = !issshowEditModal" cascade class="text-left">
                 <mdb-modal-header class="primary-color white-text">
-                    <h4 class="title "><fa class=" fas fa-pencil-alt" /> Update form</h4>
+                    <h4 class="title fas fa-pencil-alt" > Update form</h4>
                 </mdb-modal-header>
                 <mdb-modal-body class="grey-text">
                     <mdb-input size="sm" label="Your name" v-model="fullName" icon="user" group type="text" validate error="wrong" success="right"/>
