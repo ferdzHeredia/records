@@ -3,15 +3,15 @@
     <div class="text-center">        
         <h3 class="text-info mt-4" >Registered Users</h3>
       </div>
-
-
     <div class="row ml-5">
 
       <div class="col-lg-6 pl-5">
-        <mdb-form-inline>
-        <mdbIcon icon="search" class="pr-2" /> 
-        <mdb-input type="text" v-model="search" placeholder="Search Keyword" aria-label="Search"/> 
-          
+          <mdb-tooltip trigger="hover" :options="{placement: 'top'}">
+        <span slot="tip">You can change the category to search by individual fields</span>
+       
+        <mdb-form-inline slot="reference" >
+          <mdbIcon icon="search" class="pr-2" /> 
+          <mdb-input type="text" v-model="search" placeholder="Search Keyword" aria-label="Search"/> 
         <mdb-dropdown class="pl-5" >
             <mdb-dropdown-toggle slot="toggle" color="info">{{category}}</mdb-dropdown-toggle>
             <mdb-dropdown-menu>
@@ -20,24 +20,14 @@
               <mdb-dropdown-item @click="change(categories[2])">{{categories[2]}}</mdb-dropdown-item>
             </mdb-dropdown-menu>
         </mdb-dropdown>
-
         </mdb-form-inline> 
-
-          
-
+         </mdb-tooltip>
       </div> 
-
-
       <div class="col-lg-6 mt-4 pl-5"> 
         <!-- displays child component NewUserModal        -->
        <NewUser/> 
       </div>  
- 
-  
     </div>
-
-    
-          
     <hr class="bg-info">
     <div class="alert alert-danger" v-if="errorMsg">
       Error Message
@@ -95,7 +85,7 @@
 </template>
 
 <script>
-import {mdbInput, mdbFormInline, mdbIcon, mdbDropdown, mdbDropdownItem, mdbDropdownMenu, mdbDropdownToggle } from 'mdbvue';       
+import {mdbInput, mdbFormInline, mdbIcon, mdbDropdown, mdbDropdownItem, mdbDropdownMenu, mdbDropdownToggle, mdbTooltip } from 'mdbvue';       
 
 import EditUser from './EditUser';  
 import DeleteUser from './DeleteUser';
@@ -139,7 +129,8 @@ export default {
       mdbDropdown, 
       mdbDropdownItem, 
       mdbDropdownMenu, 
-      mdbDropdownToggle
+      mdbDropdownToggle,
+      mdbTooltip
   },
   
   methods:{
