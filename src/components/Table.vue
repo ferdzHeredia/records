@@ -85,7 +85,7 @@
                   
               </tbody>
         </table>
-            <jw-pagination :pageSize = 3 :items="users" @changePage="onChangePage" >     </jw-pagination>       
+            <jw-pagination :pageSize = pages  :items="users" @changePage="onChangePage" >     </jw-pagination>       
    
       </div>
     </div> 
@@ -120,7 +120,7 @@ export default {
   name: 'Table',
    data () {        
      return{
-       currentEntry: 10,
+      currentEntry: 10,
       rowEntries: [10, 20, 30, 40, 50],
       items: '',
       pageOfItems: [],
@@ -139,7 +139,8 @@ export default {
       editModall: false,    //display edit user modal
       deleteModal: false, //display DeleteUserModal
       infoModal: false,
-      pageSize: 3, 
+      pageSize: 3,
+      pages: 3, 
       
     };    
   },
@@ -273,7 +274,10 @@ export default {
         
         this.pageOfItems = ['']
 
-        for (let index = 0; index < this.pageSize; index++) {
+        if(this.pages > this.users.length)
+        this.pages = this.users.length
+
+        for (let index = 0; index < this.pages; index++) {
           this.pageOfItems[index] = this.users[index];
           
         }
@@ -320,6 +324,9 @@ export default {
        changeEntry: function(rowEntry){
 
          this.currentEntry= rowEntry
+         this.pages = rowEntry
+         this.checkExist()
+         window.location.reload()
        } 
 
   
