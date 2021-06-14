@@ -69,7 +69,7 @@
                   
               </tbody>
         </table>
-            <jw-pagination :pageSize = 2 :items="users" @changePage="onChangePage" >     </jw-pagination>       
+            <jw-pagination :pageSize = 3 :items="users" @changePage="onChangePage" >     </jw-pagination>       
    
       </div>
     </div> 
@@ -121,8 +121,7 @@ export default {
       editModall: false,    //display edit user modal
       deleteModal: false, //display DeleteUserModal
       infoModal: false,
-      filteringInfo: false,
-      pageSize: 0,
+      pageSize: 3, 
       
     };    
   },
@@ -235,28 +234,11 @@ export default {
     {
       this.category = index
     },
-         onChangePage: function(pageOfItems){
+    
+    onChangePage: function(pageOfItems){
       try {
 
       this.pageOfItems = pageOfItems
-
-    
-      if (this.search === '')
-          this.filteringInfo = false
-        else
-          this.filteringInfo = true
-
-
-
-      
-      if(this.filteringInfo === true)
-      {
-        this.pageSize = 2
-        this.pageOfItems = this.filterUsers
-       
-      }
-
-        console.log(this.pageOfItems)
 
      window.location.reload
       } catch (error) {
@@ -270,21 +252,14 @@ export default {
 
        if (this.search === '')
        {
-        //{console.log("yese")
-        //console.log(this.pageSize,"YES")
-        this.pageSize = 2
         
-        
-        console.log(this.items)
-        console.log("HERE",this.pageOfItems,"HERE")
-        //this.pageOfItems = ''
-        //this.pageOfItems = this.users[1,2]
-        console.log("result",this.pageOfItems)
-        //console.log(this.pageOfItems)
+        this.pageOfItems = ['']
 
+        for (let index = 0; index < this.pageSize; index++) {
+          this.pageOfItems[index] = this.users[index];
+          
+        }
 
-
-        // = pageOfItems
         onchange()
         window.location.reload
         }
@@ -297,14 +272,16 @@ export default {
               {
               data =  this.users.filter(user => user.Name.toLowerCase().includes(this.search.toLowerCase()))
               console.log("finding searches")
-              //this.onChangePage()
+              this.pageOfItems = data
               return data
               }
             case 'Email':
                 data =  this.users.filter(user => user.Email.toLowerCase().includes(this.search.toLowerCase()))
+                this.pageOfItems = data
              return data
             case 'Phone Number':
               data =  this.users.filter(user => user.Phone.toLowerCase().includes(this.search.toLowerCase()))
+              this.pageOfItems = data
               return data
             default:
              data = this.users.filter(user => user.Name.toLowerCase().includes(this.search.toLowerCase()))
@@ -329,40 +306,7 @@ export default {
   },
   computed:
   {
-  //  filterUsers: function()
-  // {
-
-
-  //     try { 
-  //         let data = ''
-  //         switch(this.category) {
-  //           case 'Name':
-  //             {
-  //             data =  this.users.filter(user => user.Name.toLowerCase().includes(this.search.toLowerCase()))
-  //             console.log("finding searches")
-  //             //this.onChangePage()
-  //             return data
-  //             }
-  //           case 'Email':
-  //               data =  this.users.filter(user => user.Email.toLowerCase().includes(this.search.toLowerCase()))
-  //            return data
-  //           case 'Phone Number':
-  //             data =  this.users.filter(user => user.Phone.toLowerCase().includes(this.search.toLowerCase()))
-  //             return data
-  //           default:
-  //            data = this.users.filter(user => user.Name.toLowerCase().includes(this.search.toLowerCase()))
-  //          //  console.log(data)
-  //             return data
-
-  //         }
-     
-  //     } catch (error) {
-  //       console.log(error)
-  //       return false
-  //     }
-  // },
- 
-
+  
   },
   //method 2 for fetching data
   beforeMount()
