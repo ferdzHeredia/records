@@ -26,8 +26,24 @@
       <div class="col-lg-6 mt-4 pl-5"> 
         <!-- displays child component NewUserModal        -->
        <NewUser/> 
-      </div>  
+       <div class="text-center">
+          <mdb-tooltip trigger="hover" :options="{placement: 'top'}">
+        <span slot="tip">Enter the amount of Table rows per page </span>
+          <mdb-dropdown slot="reference">
+      <mdb-dropdown-toggle slot="toggle" color="info" size="sm">{{currentEntry}}</mdb-dropdown-toggle>
+      <mdb-dropdown-menu>
+        <mdb-dropdown-item v-for="(rowEntry, index) in rowEntries" v-bind:key="index" @click="changeEntry(rowEntry)">{{rowEntry}}</mdb-dropdown-item>       
+      </mdb-dropdown-menu>
+    </mdb-dropdown>
+    </mdb-tooltip>
     </div>
+      </div>
+        
+    </div>
+        
+               
+    
+    
     <hr class="bg-info">
     <div class="alert alert-danger" v-if="errorMsg">
       Error Message
@@ -104,6 +120,8 @@ export default {
   name: 'Table',
    data () {        
      return{
+       currentEntry: 10,
+      rowEntries: [10, 20, 30, 40, 50],
       items: '',
       pageOfItems: [],
       category: 'categories',
@@ -296,11 +314,13 @@ export default {
         return false
       }
         
+       },
 
+       //change the amount of table row per page
+       changeEntry: function(rowEntry){
+
+         this.currentEntry= rowEntry
        } 
-
-
-
 
   
   },
