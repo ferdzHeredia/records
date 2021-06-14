@@ -11,7 +11,7 @@
        
         <mdb-form-inline slot="reference" >
           <mdbIcon icon="search" class="pr-2" /> 
-          <mdb-input type="text" v-model="search" placeholder="Search Keyword" aria-label="Search" v-on:change="filterUsers"/> 
+          <mdb-input type="text" v-model="search" placeholder="Search Keyword" aria-label="Search" v-on:change="checkExist()"/> 
         <mdb-dropdown class="pl-5" >
             <mdb-dropdown-toggle slot="toggle" color="info">{{category}}</mdb-dropdown-toggle>
             <mdb-dropdown-menu>
@@ -69,7 +69,7 @@
                   
               </tbody>
         </table>
-            <jw-pagination :pageSize=2 :items="users" @changePage="onChangePage" >     </jw-pagination>       
+            <jw-pagination :pageSize = 2 :items="users" @changePage="onChangePage" >     </jw-pagination>       
    
       </div>
     </div> 
@@ -122,6 +122,7 @@ export default {
       deleteModal: false, //display DeleteUserModal
       infoModal: false,
       filteringInfo: false,
+      pageSize: 0,
       
     };    
   },
@@ -265,20 +266,31 @@ export default {
       
     },
 
-    //  checkExist(event){
+     checkExist(){
 
+       if (this.search === '')
+       {
+        //{console.log("yese")
+        //console.log(this.pageSize,"YES")
+        this.pageSize = 2
         
+        
+        console.log(this.items)
+        console.log("HERE",this.pageOfItems,"HERE")
+        //this.pageOfItems = ''
+        //this.pageOfItems = this.users[1,2]
+        console.log("result",this.pageOfItems)
+        //console.log(this.pageOfItems)
 
-    //    } 
-  
-  },
-  computed:
-  {
-   filterUsers: function()
-  {
 
 
-      try { 
+        // = pageOfItems
+        onchange()
+        window.location.reload
+        }
+
+
+              try { 
           let data = ''
           switch(this.category) {
             case 'Name':
@@ -296,7 +308,8 @@ export default {
               return data
             default:
              data = this.users.filter(user => user.Name.toLowerCase().includes(this.search.toLowerCase()))
-           //  console.log(data)
+              console.log(data)
+              this.pageOfItems = data
               return data
 
           }
@@ -305,7 +318,49 @@ export default {
         console.log(error)
         return false
       }
+        
+
+       } 
+
+
+
+
+  
   },
+  computed:
+  {
+  //  filterUsers: function()
+  // {
+
+
+  //     try { 
+  //         let data = ''
+  //         switch(this.category) {
+  //           case 'Name':
+  //             {
+  //             data =  this.users.filter(user => user.Name.toLowerCase().includes(this.search.toLowerCase()))
+  //             console.log("finding searches")
+  //             //this.onChangePage()
+  //             return data
+  //             }
+  //           case 'Email':
+  //               data =  this.users.filter(user => user.Email.toLowerCase().includes(this.search.toLowerCase()))
+  //            return data
+  //           case 'Phone Number':
+  //             data =  this.users.filter(user => user.Phone.toLowerCase().includes(this.search.toLowerCase()))
+  //             return data
+  //           default:
+  //            data = this.users.filter(user => user.Name.toLowerCase().includes(this.search.toLowerCase()))
+  //          //  console.log(data)
+  //             return data
+
+  //         }
+     
+  //     } catch (error) {
+  //       console.log(error)
+  //       return false
+  //     }
+  // },
  
 
   },
