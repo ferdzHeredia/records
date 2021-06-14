@@ -85,7 +85,7 @@
                   
               </tbody>
         </table>
-            <jw-pagination :pageSize = pages  :items="users" @changePage="onChangePage" >     </jw-pagination>       
+            <jw-pagination :pageSize = pages  v-bind:items ="users"  @changePage="onChangePage" >     </jw-pagination>       
    
       </div>
     </div> 
@@ -121,8 +121,8 @@ export default {
    data () {        
      return{
       currentEntry: 10,
-      rowEntries: [10, 20, 30, 40, 50],
-      items: '',
+      rowEntries: [10, 2, 3, 4, 50],
+      items: this.users,
       pageOfItems: [],
       category: 'categories',
       categories: ['Name', 'Email','Phone Number'],
@@ -132,7 +132,7 @@ export default {
       email:'',
       name:'', 
       showdata: true,
-      users: null,    //used in the v-for loop to display the user's data inside the table
+      users: '',    //used in the v-for loop to display the user's data inside the table
       errorMsg: false,  //to display error message
       successMsg: false,  //to display success message      
       isTableHeader: true,    //to display header of the table
@@ -141,6 +141,7 @@ export default {
       infoModal: false,
       pageSize: 3,
       pages: 3, 
+      checkSearch: false,
       
     };    
   },
@@ -204,50 +205,66 @@ export default {
     
     //function goEditUser triggers EditUser components to execute
     goEditUser: function(Name, Email, Phone, userId){ 
+      try {
+              this.name = Name;
+            this.email = Email;
+            this.phone = Phone;
+            this.deleteModal = false;  //hide delete user
+            this.infoModal = false;  //hide edit user modal
+            this.editModall = !this.editModall;
+            if(this.editModall === false )
+            {
+              this.editModall = true;
+              
+            }
+            Vue.prototype.$editUser = [Name, Email, Phone, userId]
 
-      this.name = Name;
-      this.email = Email;
-      this.phone = Phone;
-      this.deleteModal = false;  //hide delete user
-      this.infoModal = false;  //hide edit user modal
-      this.editModall = !this.editModall;
-      if(this.editModall === false )
-      {
-        this.editModall = true;
-        
+      } catch (error) {
+            console.log(error)
       }
-      Vue.prototype.$editUser = [Name, Email, Phone, userId]
 
+      
     },
     async details(Name, Email, Phone)
     {
-      
-      this.deleteModal = false;  //hide delete user
-       this.editModall = false;  //hide edit user modal
-      this.infoModal = !this.infoModal;
-      if(this.infoModal === false )
-      {
-        this.infoModal = true;
-        
+      try {
+            this.deleteModal = false;  //hide delete user
+          this.editModall = false;  //hide edit user modal
+          this.infoModal = !this.infoModal;
+          if(this.infoModal === false )
+          {
+            this.infoModal = true;
+            
+          }
+          Vue.prototype.$Name = Name
+          Vue.prototype.$EmailInfo = Email
+          Vue.prototype.$Contact = Phone
+      } catch (error) {
+        console.log(error)
       }
-      Vue.prototype.$Name = Name
-      Vue.prototype.$EmailInfo = Email
-      Vue.prototype.$Contact = Phone
+      
+      
 
     },
 
     //this function triggers Delete user modal to be displayed
      async goDeleteUser(user, userName)
      {
-        this.infoModal = false;  //hide delete user
-        this.editModall = false;  //hide edit user modal
-        this.deleteModal = !this.deleteModal;   //triggers to display and hide the delete modal form
-        if(this.deleteModal === false )   //checks if boolean delete modal is set to false
-        {
-          this.deleteModal = true;    //assigns deletemodal to true
-        }
-        Vue.prototype.$recieveData = [user, userName] 
-        Vue.prototype.$name = userName
+       try {
+              this.infoModal = false;  //hide delete user
+              this.editModall = false;  //hide edit user modal
+              this.deleteModal = !this.deleteModal;   //triggers to display and hide the delete modal form
+              if(this.deleteModal === false )   //checks if boolean delete modal is set to false
+              {
+                this.deleteModal = true;    //assigns deletemodal to true
+              }
+              Vue.prototype.$recieveData = [user, userName] 
+              Vue.prototype.$name = userName
+       } catch (error) {
+         console.log(error)
+       }
+
+       
     },
     change: function(index)
     {
@@ -256,10 +273,8 @@ export default {
     
     onChangePage: function(pageOfItems){
       try {
-
-      this.pageOfItems = pageOfItems
-
-     window.location.reload
+        this.pageOfItems = pageOfItems
+        window.location.reload
       } catch (error) {
         console.log(error)
         return false;
@@ -268,65 +283,62 @@ export default {
     },
 
      checkExist(){
-
-       if (this.search === '')
-       {
-        
-        this.pageOfItems = ['']
-
-        if(this.pages > this.users.length)
-        this.pages = this.users.length
-
-        for (let index = 0; index < this.pages; index++) {
-          this.pageOfItems[index] = this.users[index];
-          
-        }
-
-        onchange()
-        window.location.reload
-        }
-
-
-              try { 
-          let data = ''
-          switch(this.category) {
-            case 'Name':
-              {
-              data =  this.users.filter(user => user.Name.toLowerCase().includes(this.search.toLowerCase()))
-              console.log("finding searches")
-              this.pageOfItems = data
-              return data
+          if (this.search === '')
+          {
+                this.pageOfItems = ['']
+              if(this.pages > this.users.length)
+                this.pages = this.users.length
+              for (let index = 0; index < this.pages; index++) {
+                this.pageOfItems[index] = this.users[index];
               }
-            case 'Email':
-                data =  this.users.filter(user => user.Email.toLowerCase().includes(this.search.toLowerCase()))
-                this.pageOfItems = data
-             return data
-            case 'Phone Number':
-              data =  this.users.filter(user => user.Phone.toLowerCase().includes(this.search.toLowerCase()))
-              this.pageOfItems = data
-              return data
-            default:
-             data = this.users.filter(user => user.Name.toLowerCase().includes(this.search.toLowerCase()))
-              console.log(data)
-              this.pageOfItems = data
-              return data
+              this.checkSearch = false
+            }
+            else
+            this.checkSearch = true
 
-          }
-     
-      } catch (error) {
-        console.log(error)
-        return false
-      }
+          if(this.checkSearch)
+          try { 
+                let data = ''
+                switch(this.category) {
+                  case 'Name':
+                    {
+                    data =  this.users.filter(user => user.Name.toLowerCase().includes(this.search.toLowerCase()))
+                    this.pageOfItems = data
+                    return data
+                    }
+                  case 'Email':
+                      data =  this.users.filter(user => user.Email.toLowerCase().includes(this.search.toLowerCase()))
+                      this.pageOfItems = data
+                  return data
+                  case 'Phone Number':
+                    data =  this.users.filter(user => user.Phone.toLowerCase().includes(this.search.toLowerCase()))
+                    this.pageOfItems = data
+                    return data
+                  default:
+                  data = this.users.filter(user => user.Name.toLowerCase().includes(this.search.toLowerCase()))
+                    this.pageOfItems = data
+                    return data
+
+                  }
+            
+              } catch (error) {
+                console.log(error)
+                return false
+              }
         
        },
 
        //change the amount of table row per page
        changeEntry: function(rowEntry){
 
-         this.currentEntry= rowEntry
+         try {
+            this.currentEntry= rowEntry
          this.pages = rowEntry
          this.checkExist()
-         window.location.reload()
+         } catch (error) {
+           console.log(error)
+         }
+        
        } 
 
   
