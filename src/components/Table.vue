@@ -173,8 +173,8 @@ export default {
 
       try 
       {
-              let response = await fetch(       
-          url
+        let response = await fetch(       
+        url
       );
      
       let jsonResponse = await response.json();     //variable jsonResponse fetches the data from database through the rest Api
@@ -190,6 +190,7 @@ export default {
 
           //data property the receives all the info from the jsonResponse
           this.users = jsonResponse
+          this.users.reverse()
           
           
           return  this.users        
@@ -283,6 +284,11 @@ export default {
     },
 
      checkExist(){
+
+          this.deleteModal = false;  //hide delete user
+          this.editModall = false;  //hide edit user modal
+          this.infoModal = false;
+          
           if (this.search === '')
           {
                 this.pageOfItems = ['']
@@ -332,8 +338,12 @@ export default {
        changeEntry: function(rowEntry){
 
          try {
-            this.currentEntry= rowEntry
-         this.pages = rowEntry
+          this.deleteModal = false;  //hide delete user
+          this.editModall = false;  //hide edit user modal
+          this.infoModal = false;
+          this.currentEntry= rowEntry
+          this.pages = rowEntry
+
          this.checkExist()
          } catch (error) {
            console.log(error)
