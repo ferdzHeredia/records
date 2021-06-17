@@ -53,6 +53,7 @@ export default {
             Name: '',
             Email: '',
             Phone: '',
+            errors:[],
         }
         
     }
@@ -61,16 +62,24 @@ export default {
      newUserInfoData: Array,
    },
    methods: {
-       addNewUser: function(fname, email, phone){
+       addNewUser: function(fname, email, phone){  
            
+           this.ValidateEmail()
+            console.log(this.errors)
+           let test = (this.errors.length)
+           console.log(!test)
            
-           //exception handling (try catch)
+           if(!test)
+           {
+                 //exception handling (try catch)
            try {
             
             //newUser recieves user's data
             this.newUser.name = fname
             this.newUser.email = email
             this.newUser.phone = phone
+
+           
           
 
             this.axios.post("http://localhost:3333/user_data/", this.newUser) //will post the User's data inside the database user_data
@@ -78,22 +87,65 @@ export default {
                 console.log(result)
                 console.log(this.newUser)
                 })
+                  window.location.reload() //reloads window 
            } 
            catch (error) {
               console.log(error) //throws error on console
            }
-           this.resetData()
+         
 
-           window.location.reload() //reloads window          
+        
+
+           }
+           else{
+               var errors = ''
+              for (let index = 0; index < this.errors.length; index++) {
+                  errors = errors + this.errors[index];
+                  if(!((index + 1) == this.errors.length))
+                  errors = errors + '\n'
+              }
+                    alert(errors)
+                
+              }
+
+                this.resetData()
+               
+           
+                   
        },
         resetData: function()
         {
             this.newUser.Name = '';
             this.newUser.Email = '';
             this.newUser.Phone = '';
+            this.errors = []
+        },
+
+         async ValidateEmail()
+        {
+         
+               
+
+                   if(this.newUser.Email && this.newUser.Phone && this.newUser.Name) return true;
+                this.errors = [];
+                if(!this.newUser.Email) this.errors.push("Email required.");
+                if(!this.newUser.Phone) this.errors.push("Phone required.");
+                if(!this.newUser.Name) this.errors.push("Name required.");
+                console.log(this.errors)
+                return this.errors
+               
+         
+                
+    
         }
-       
+
+                                    
    },
+
+   beforeMount()
+   {
+       this.resetData()
+   }
    
 }
 </script>
