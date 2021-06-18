@@ -8,14 +8,23 @@
                 <mdb-modal-header class="primary-color white-text">
                     <h4 class="title fas fa-pencil-alt">Add User Form</h4>
                 </mdb-modal-header>
+                <!-- Input User Data -->
                 <mdb-modal-body class="grey-text">
                     <mdb-input size="sm" label="Your name" v-model="newUser.Name" icon="user" group type="text" validate error="wrong" success="right"/>
                     <mdb-input size="sm" label="Your email" v-model="newUser.Email" icon="envelope" group type="email" validate error="wrong" success="right"/>
                     <mdb-input size="sm" label="Your Phone Number" v-model="newUser.Phone" icon="phone-square-alt" group type="tel" validate error="wrong" success="right"/>
+                    <mdb-input size="sm" label="Country" v-model="newUser.Country" icon="flag" group type="tel" validate error="wrong" success="right"/>
+                    <mdb-input size="sm" label="Vacation Destination (Optional)" v-model="newUser.Destination" icon="plane" group type="tel" validate error="wrong" success="right"/>
+                    <mdb-input size="sm" label="Vacation Interest (Optional)" v-model="newUser.VacationInterest" icon="cloud-sun" group type="tel" validate error="wrong" success="right"/>
+                    <mdb-input size="sm" label="Number Of Nights" v-model="newUser.NumberOfNights" icon="moon" group type="tel" validate error="wrong" success="right"/>
+                    <mdb-input size="sm" label="Number Of Rooms" v-model="newUser.Rooms" icon="hotel" group type="tel" validate error="wrong" success="right"/>                    
+                    <mdb-input size="sm" label="Number Of Adults" v-model="newUser.Adults" icon="female" group type="tel" validate error="wrong" success="right"/>
+                    <mdb-input size="sm" label="Number Of Children" v-model="newUser.Children" icon="child" group type="tel" validate error="wrong" success="right"/>
+                    <mdb-input size="sm" label="Comments Or Questions (Optional)" v-model="newUser.CommentsOrQuestions" icon="phone-square-alt" group type="tel" validate error="wrong" success="right"/>
                 </mdb-modal-body>
                 <mdb-modal-footer>
                     <mdb-btn class="btn btn-outline-purple" @click.native="showModal = false">Close</mdb-btn>
-                    <mdb-btn outline="btn btn-outline-purple" @click="addNewUser(newUser.newFullName, newUser.newEmailAdd, newUser.newPhoneNum), showModal = false">Add User</mdb-btn>
+                    <mdb-btn outline="btn btn-outline-purple" @click="addNewUser(newUser.newFullName, newUser.newEmailAdd, newUser.newPhoneNum, newUser.Country, newUser.Destination, newUser.VacationInterest, newUser.NumberOfNights, newUser.Rooms, newUser.Adults, newUser.Children, newUser.CommentsOrQuestions ), showModal = false">Add User</mdb-btn>
                 </mdb-modal-footer>
                 </mdb-modal>
             </mdb-col>
@@ -53,6 +62,14 @@ export default {
             Name: '',
             Email: '',
             Phone: '',
+            Country: '',
+            VacationInterest: '',
+            CommentsOrQuestions: '',
+            Destination: '',
+            NumberOfNights: null,
+            Rooms: null,
+            Adults: null,
+            Children: null, 
             errors:[],
         }
         
@@ -62,7 +79,7 @@ export default {
      newUserInfoData: Array,
    },
    methods: {
-       addNewUser: function(fname, email, phone){  
+       addNewUser: function(fname, email, phone, country, Destination,VacationInterest, NumberOfNights, Rooms, Adults, Children, CommentsOrQuestions){  
            
            this.ValidateEmail()
             console.log(this.errors)
@@ -78,6 +95,14 @@ export default {
             this.newUser.name = fname
             this.newUser.email = email
             this.newUser.phone = phone
+            this.newUser.country = country
+            this.newUser.VacationInterest = VacationInterest
+            this.newUser.NumberOfNights = NumberOfNights
+            this.newUser.Rooms = Rooms
+            this.newUser.Adults = Adults
+            this.newUser.Children = Children
+            this.newUser.CommentsOrQuestions = CommentsOrQuestions
+            this.newUser.Destination = Destination
 
            
           
@@ -118,6 +143,13 @@ export default {
             this.newUser.Name = '';
             this.newUser.Email = '';
             this.newUser.Phone = '';
+            this.newUser.Country = '';
+            this.newUser.VacDestination = '';
+            this.newUser.CommentsOrQuestions = '';
+            this.newUser.NumberOfNights = null;
+            this.newUser.Rooms = null;
+            this.newUser.Adults = null;
+            this.newUser.Children = null;
             this.errors = []
         },
 
