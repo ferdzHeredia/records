@@ -63,9 +63,10 @@ export default {
    },
    methods: {
        addNewUser: function(fname, email, phone){  
+            console.log("BEFORE",this.errors)
            
            this.ValidateEmail()
-            console.log(this.errors)
+           console.log(this.errors)
            let test = (this.errors.length)
            console.log(!test)
            
@@ -87,7 +88,8 @@ export default {
                 console.log(result)
                 console.log(this.newUser)
                 })
-                  window.location.reload() //reloads window 
+                alert('Successfully added new user')
+                window.location.reload() //reloads window 
            } 
            catch (error) {
               console.log(error) //throws error on console
@@ -123,13 +125,9 @@ export default {
 
          async ValidateEmail()
         {
-         
-               
-
-                   if(this.newUser.Email && this.newUser.Phone && this.newUser.Name) return true;
                 this.errors = [];
-                if(!this.newUser.Email) this.errors.push("Email required.");
-                if(!this.newUser.Phone) this.errors.push("Phone required.");
+                this.email(this.newUser.Email);
+                this.phonenumber(this.newUser.Phone);
                 if(!this.newUser.Name) this.errors.push("Name required.");
                 console.log(this.errors)
                 return this.errors
@@ -137,9 +135,32 @@ export default {
          
                 
     
-        }
+        },
+        email: function(emailval)  
+        {  
+        var x=emailval;  
+        var atposition=x.indexOf("@");  
+        var dotposition=x.lastIndexOf(".");  
+        if (atposition<1 || dotposition<atposition+2 || dotposition+2>=x.length){  
+        let currentErrors = ("Please enter a valid e-mail address");  
+         this.errors.push(currentErrors)  
+         console.log("true",this.errors)
+       
+        }  
 
-                                    
+        },
+
+        
+         phonenumber: function(inputtxt)
+            {
+                var phoneno = /^\+?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+                console.log(inputtxt,phoneno)
+                if(!(inputtxt.match(phoneno)))
+                    {
+                  this.errors.push("Enter a Valid Phone Number")
+                    }
+            },
+                            
    },
 
    beforeMount()
